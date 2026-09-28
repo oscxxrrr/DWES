@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG PERSONAL</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="blog-container">
+        <header class="blog-header">
+            <?php
+            if(isset($_SESSION['user'])){
+                echo "<div class='user-welcome'>Bienvenido, <strong>" . $_SESSION['user']->getUsername() . "</strong></div>";
+                echo "<br><br><a href='index.php?accion=crear'><button class='btn-primary'>Escribir artículo</button></a> <br><br>";
+                
+                if (isset($_GET['accion']) && $_GET['accion'] === 'crear'){
+                    ?>
+                    <form action="" method="POST" class="form-card">
+                        <br>
+                        <input type="text" name="title" placeholder="Título del artículo" required><br><br>
+                        <textarea name="contenido" placeholder="Empieza a escribir tu artículo..." required></textarea><br><br>
+                        <input type="submit" value="Publicar" name="enviar_articulo" class="btn-success">
+                    </form>
+                    <br>
+                    <?php
+                }
+                echo "<a href='index.php?accion=logout' class='logout-link'>Cerrar sesión</a><br>";
+            } else {
+                // Si se pulsa en registrarse, mostramos el formulario de registro en lugar del login
+                if (isset($_GET['accion']) && $_GET['accion'] === 'registro'){
+                    ?>
+                    <form action="index.php" method="POST" class="login-form">
+                        <h3>Registro de Usuario</h3>
+                        <br>
+                        <input type="text" name="username" placeholder="Usuario" required><br><br>
+                        <input type="email" name="email" placeholder="Email" required><br><br>
+                        <input type="password" name="password" placeholder="Contraseña" required><br><br>
+                        <input type="submit" value="Registrar" name="register" class="btn-primary">
+                        <br><br>
+                        <a href="index.php" style="font-size: 13px;">¿Ya tienes cuenta? Inicia sesión</a>
+                    </form>
+                    <?php
+                } else {
+                    ?>
+                    <form action="" method="POST" class="login-form">
+                        <h3>Iniciar Sesión</h3>
+                        <br>
+                        <input type="text" name="username" placeholder="Usuario" required><br><br>
+                        <input type="password" name="password" placeholder="Contraseña" required><br><br>
+                        <input type="submit" value="Entrar" class="btn-primary">
+                        <br><br>
+                        <a href="index.php?accion=registro" style="font-size: 13px;">¿No tienes cuenta? Regístrate</a>
+                    </form>
+                    <?php
+                }
+            } 
+            ?>
+        </header>
+
+        <hr class="divider">
+
+        <h2>Lista de Artículos</h2><br>
+        <?php
+        $cont = 0;
+
+        if($articuloArray){
+            foreach($articuloArray as $articulos){
+                $cont++;
+                echo '<div class="article-box">';
+                echo '<span class="article-counter">Artículo número ' . $cont . '</span><br>';
+                echo "<h3 class='article-title'>" . $articulos->getTitle() . "</h3>";
+                echo "<div class='article-content'>" . $articulos->getContent() . "</div>";
+
+                // MOSTRAR COMENTARIOS
+                echo "<h4 class='comments-title'>Comentarios:</h4>";
+                $comentarios = $articulos->getComments();
+                if($comentarios){
+                    foreach($comentarios as $comm){
+                        echo "<li><div class='comment-box'><strong>" . $comm->getNombreUsuario() . ":</strong> " . $comm->getComentario() . "</div></li><br>";
+                    }
+                }
+
+                // FORMULARIO PARA COMENTAR
+                if(isset($_SESSION['user'])){
+                    ?>
+                    <form action="" method="POST" class="comment-form">
+                        <input type="hidden" name="idArticulo" value="<?php echo $articulos->getId(); ?>">
+                        <input type="text" name="comentario" placeholder="Escribe un comentario..." required>
+                        <input type="submit" value="Comentar" class="btn-secondary">
+                    </form>
+                    <?php
+                }
+
+                echo '</div><br><hr class="divider">';
+            }
+        } else {
+            echo "<p>No hay artículos publicados todavía.</p>";
+        }
+        ?>
+    </div>
+
+</body>
+</html>
