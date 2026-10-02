@@ -71,7 +71,7 @@
                 echo '<div class="article-box">';
                 echo '<span class="article-counter">Artículo número ' . $cont . '</span><br>';
                 echo "<h3 class='article-title'>" . $articulos->getTitle() . "</h3>";
-                echo "<div class='article-content'>" . $articulos->getContent() . "</div>";
+                echo "<div class='article-content'>" . $articulos->getContent() . "</div><br>";
 
                 // MOSTRAR COMENTARIOS
                 echo "<h4 class='comments-title'>Comentarios:</h4>";
@@ -92,8 +92,7 @@
                     </form>
                     <?php
                 }
-
-                echo '</div><br><hr class="divider">';
+                echo '</div><br><hr>';
             }
         } else {
             echo "<p>No hay artículos publicados todavía.</p>";

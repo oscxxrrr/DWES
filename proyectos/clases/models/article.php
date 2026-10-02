@@ -25,7 +25,6 @@
         public function getIdUser(){ 
             return $this->idUser; 
         }
-        
         public function getComments(){
             return $this->comments; 
         }
