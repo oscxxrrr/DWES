@@ -12,7 +12,7 @@ class Product{
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
-        $this->precio = $precio;
+        $this->price = $price;
         $this->stock = $stock;
     }
 
@@ -20,16 +20,16 @@ class Product{
         return $this->id;
     }
 
-    public function getNombre() {
-        return $this->nombre;
+    public function getName() {
+        return $this->name;
     }
 
-    public function getDescripcion() {
-        return $this->descripcion;
+    public function getDescription() {
+        return $this->description;
     }
 
-    public function getPrecio() {
-        return $this->precio;
+    public function getPrice() {
+        return $this->price;
     }
 
     public function getStock() {

@@ -5,6 +5,7 @@ require_once("models/User.php");
 require_once("models/Product.php");
 require_once("models/Order.php");
 require_once("models/OrderLine.php");
+require_once("models/Cart.php");
 require_once("models/ProductRepository.php");
 require_once("models/OrderRepository.php");
 require_once("models/OrderLineRepository.php");
@@ -18,16 +19,22 @@ if(isset($_GET['c'])){
 
 //acciones
 
-//listar productos
+//listar productos -> vista por defecto
 
 //ver login
 if(isset($_GET['login'])){
     require_once('views/login.phtml');
     exit;
 }
-//hacer login
+
+//hacer login -> controllers/userController.php
 
 //logout
+if(isset($_GET['logout'])){
+    session_destroy();
+    header('location:index.php');
+    exit;
+}
 
 //register
 if(isset($_GET['register'])){
@@ -35,12 +42,13 @@ if(isset($_GET['register'])){
     exit;
 }
 
-//añadir al carrito
+//ver carrito
+if(isset($_GET['cart'])){
+    require_once('views/cart.phtml');
+    exit;
+}
 
-//terminar pedido
-
-
-// vista por defecto
+//vista por defecto
 
 $products=ProductRepository::getProducts();
 

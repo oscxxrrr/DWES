@@ -7,7 +7,7 @@ class OrderLineRepository{
         $result=$db->query($query);
         $orderLines=[];
         while($orderLine=$result->fetch_assoc()){
-            $orderLines[]=$orderLine;
+            $orderLines[]=new OrderLine($orderLine['id'], $orderLine['product_id'], $orderLine['quantity'], $orderLine['price']);
         }
         return $orderLines;
     }

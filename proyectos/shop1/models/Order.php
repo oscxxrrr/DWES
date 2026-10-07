@@ -7,15 +7,15 @@ class Order{
     private $total_price;
     private $date;
     private $status;
-    private $orderLines=[];
+    private $orderLines = [];
 
-    public function __construct($id, $buyer_id, $total_price, $date, $status) {
+    public function __construct($id, $buyer, $total_price, $date, $status) {
         $this->id = $id;
-        $this->buyer = UserRepository::getUserById($buyer_id);
+        $this->buyer = $buyer;
         $this->total_price = $total_price;
         $this->date = $date;
-        $this->status = $status;  
-        $this->orderLines = OrderLineRepository::getOrderLinesByOrderId($id);
+        $this->status = $status;
+        $this->orderLines = [];
     }
 
     public function getId() {
@@ -23,12 +23,11 @@ class Order{
     }
 
     public function getBuyer() {
-        return $this->user_id;
+        return $this->buyer;
     }
 
-
     public function getTotal() {
-        return $this->total;
+        return $this->total_price;
     }
 
     public function getStatus() {
@@ -39,7 +38,7 @@ class Order{
         return $this->date;
     }
 
-    public function getProducts() {
-        return $this->products;
+    public function getOrderLines() {
+        return $this->orderLines;
     }
 }

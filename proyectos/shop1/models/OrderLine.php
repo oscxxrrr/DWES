@@ -7,20 +7,19 @@ class OrderLine{
     private $quantity;
     private $price;
 
-    public function __construct($id, $product_id, $quantity, $price, $order_id) {
+    public function __construct($id, $product, $quantity, $price) {
         $this->id = $id;
-        $this->product = ProductRepository::getProductById($product_id);
+        $this->product = $product;
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->order = OrderRepository::getOrderById($order_id);
     }
 
     public function getId() {
-        return $this->order_id;
+        return $this->id;
     }
 
-    public function getProductId() {
-        return $this->product_id;
+    public function getProduct() {
+        return $this->product;
     }
 
     public function getQuantity() {
@@ -29,9 +28,5 @@ class OrderLine{
 
     public function getPrice() {
         return $this->price;
-    }
-
-    public function getOrder() {
-        return $this->order;
     }
 }
