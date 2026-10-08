@@ -2,143 +2,66 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-            margin: 0;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-        h1 {
-            margin-top: 0;
-            font-size: 1.75rem;
-            color: #0f172a;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 14px 16px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        th {
-            background-color: #f8fafc;
-            font-weight: 600;
-            color: #475569;
-        }
-        .total-row {
-            font-weight: bold;
-            font-size: 1.1rem;
-            background-color: #f8fafc;
-        }
-        .btn {
-            background-color: #2563eb;
-            color: white;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-block;
-            transition: background-color 0.2s;
-        }
-        .btn:hover {
-            background-color: #1d4ed8;
-        }
-        .btn-danger {
-            background-color: #ef4444;
-            padding: 6px 12px;
-            font-size: 0.875rem;
-        }
-        .btn-danger:hover {
-            background-color: #dc2626;
-            color: white;
-        }
-        .actions {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .empty-cart {
-            text-align: center;
-            color: #64748b;
-            padding: 40px 0;
-        }
-    </style>
+    <title>Carrito</title>
+    <link rel="stylesheet" href="public/style/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Tu Carrito de Compras</h1>
 
-        <?php if (!isset($_SESSION['cart']) || $_SESSION['cart']->isEmpty()): ?>
-            <div class="empty-cart">
-                <p>Tu carrito está vacío actualmente.</p>
-                <a href="index.php" class="btn">Volver al catálogo</a>
-            </div>
-        <?php else: ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($_SESSION['cart']->getItems() as $product_id => $quantity): 
-                        $product = ProductRepository::getProductById($product_id);
-                        $subtotal = $product->getPrice() * $quantity;
-                    ?>
-                        <tr>
-                            <td><?= htmlspecialchars($product->getName()) ?></td>
-                            <td><?= number_format($product->getPrice(), 2) ?> €</td>
-                            <td><?= $quantity ?></td>
-                            <td><?= number_format($subtotal, 2) ?> €</td>
-                            <td>
-                                <form action="index.php?c=cart" method="POST" style="margin:0;">
-                                    <input type="hidden" name="product_id" value="<?= $product_id ?>">
-                                    <button type="submit" name="remove" class="btn btn-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <tr class="total-row">
-                        <td colspan="3" style="text-align: right;">Total General:</td>
-                        <td colspan="2"><?= number_format($_SESSION['cart']->getTotal(), 2) ?> €</td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="nav">
+    <a href="index.php">← Volver a la tienda</a>
+</div>
 
-            <div class="actions">
-                <a href="index.php" class="btn" style="background-color: #64748b;">Seguir comprando</a>
-                
-                <?php if (isset($_SESSION['user'])): ?>
-                    <a href="index.php?c=cart&checkout=1" class="btn" style="background-color: #16a34a;">Tramitar Pedido</a>
-                <?php else: ?>
-                    <p style="color: #b45309; font-size: 0.9rem; margin:0;">Debes <a href="index.php?login" style="color: #2563eb;">iniciar sesión</a> para finalizar la compra.</p>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-    </div>
+<h2>Tu Carrito</h2>
+
+<?php
+if($_SESSION['cart']->isEmpty()){
+    echo "Tu carrito está vacío.";
+}
+else {
+    ?>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+        </tr>
+        <?php
+        foreach($_SESSION['cart']->getItems() as $product_id => $quantity){
+            $product = ProductRepository::getProductById($product_id);
+            $subtotal = $product->getPrice() * $quantity;
+            ?>
+            <tr>
+                <td><?= $product->getName() ?></td>
+                <td><?= $product->getPrice() ?> €</td>
+                <td><?= $quantity ?></td>
+                <td><?= $subtotal ?> €</td>
+                <td>
+                    <form action="index.php?c=cart" method="POST">
+                        <input type="hidden" name="product_id" value="<?= $product_id ?>">
+                        <button type="submit" name="remove">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        <tr>
+            <td colspan="3"><b>Total</b></td>
+            <td colspan="2"><b><?= $_SESSION['cart']->getTotal() ?> €</b></td>
+        </tr>
+    </table>
+    <br>
+    <?php
+    if(isset($_SESSION['user'])){
+        echo "<a href='index.php?c=cart&checkout=1'>Tramitar pedido</a>";
+    }
+    else {
+        echo "Debes <a href='index.php?login=1'>iniciar sesión</a> para finalizar la compra.";
+    }
+}
+?>
+
 </body>
 </html>

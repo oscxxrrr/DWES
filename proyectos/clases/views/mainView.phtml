@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <div class="blog-container">
         <header class="blog-header">
             <?php
@@ -65,7 +64,7 @@
         <?php
         $cont = 0;
 
-        if($articuloArray){
+        if(isset($articuloArray) && $articuloArray){
             foreach($articuloArray as $articulos){
                 $cont++;
                 echo '<div class="article-box">';

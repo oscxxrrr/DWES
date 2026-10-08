@@ -12,8 +12,23 @@
         exit();
     }
 
+    // REGISTRO (debe ir antes que LOGIN para evitar conflicto de campos)
+    if(isset($_POST['register']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])){
+        $nombre = $_POST['username'];
+        $email = $_POST['email'];
+        $contrasena = md5($_POST['password']);
+        
+        $q = "INSERT INTO usuarios (nombre, email, contrasena) VALUES ('$nombre', '$email', '$contrasena')";
+        
+        if($conn->query($q)){
+            $info = "¡Registro exitoso! Ya puedes iniciar sesión.";
+        } else {
+            $info = "Error al registrar el usuario.";
+        }
+    }
+
     // LOGIN 
-    if(isset($_POST['username']) && isset($_POST['password'])){
+    if(!isset($_POST['register']) && isset($_POST['username']) && isset($_POST['password'])){
         $q = "SELECT * FROM usuarios WHERE nombre='" . $_POST['username'] . "'";
         $result = $conn->query($q);
         
@@ -51,21 +66,6 @@
         exit();
     }
 
-    // REGISTRO
-    if(isset($_POST['register']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])){
-        $nombre = $_POST['username'];
-        $email = $_POST['email'];
-        $contrasena = md5($_POST['password']);
-        
-        $q = "INSERT INTO usuarios (nombre, email, contrasena) VALUES ('$nombre', '$email', '$contrasena')";
-        
-        if($conn->query($q)){
-            $info = "¡Registro exitoso! Ya puedes iniciar sesión.";
-        } else {
-            $info = "Error al registrar el usuario.";
-        }
-    }
-
     // ENSEÑAR ARTICULOS CON COMENTARIOS
     $articuloArray = [];
     $resultado = $conn->query("SELECT * FROM articulos");
@@ -74,11 +74,11 @@
         while($row = $resultado->fetch_assoc()){
             $article = new Article($row['id'], $row['titulo'], $row['contenido'], $row['idUser']);
             
-            $q = $conn->query("SELECT c.*, u.nombre FROM comentarios c JOIN usuarios u ON c.idUser = u.id WHERE c.idArticulo = " . $row['id']);
+            $qComm = $conn->query("SELECT c.*, u.nombre FROM comentarios c JOIN usuarios u ON c.idUser = u.id WHERE c.idArticulo = " . $row['id']);
             
-            if($q){
-                while($row = $q->fetch_assoc()){
-                    $article->addComment(new Comment($row['id'], $row['comentario'], $row['idUser'], $row['idArticulo'], $row['nombre']));
+            if($qComm){
+                while($rowComment = $qComm->fetch_assoc()){
+                    $article->addComment(new Comment($rowComment['id'], $rowComment['comentario'], $rowComment['idUser'], $rowComment['idArticulo'], $rowComment['nombre']));
                 }
             }
             $articuloArray[] = $article;

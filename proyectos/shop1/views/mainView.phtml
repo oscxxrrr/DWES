@@ -2,83 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Online</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 40px 20px; }
-        .container { max-width: 900px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 25px; }
-        h1 { margin: 0; font-size: 1.5rem; color: #0f172a; }
-        .user-nav { display: flex; align-items: center; gap: 10px; }
-        .btn { background-color: #2563eb; color: white; padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 0.9rem; transition: background-color 0.2s; }
-        .btn:hover { background-color: #1d4ed8; }
-        .btn-outline { background-color: transparent; border: 1px solid #cbd5e1; color: #475569; }
-        .btn-outline:hover { background-color: #f1f5f9; color: #0f172a; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-        .product-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card h3 { margin: 0 0 10px 0; font-size: 1.15rem; color: #0f172a; }
-        .product-card p { color: #64748b; font-size: 0.9rem; margin: 0 0 15px 0; }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .price { font-weight: bold; font-size: 1.1rem; color: #0f172a; }
-        .stock { font-size: 0.8rem; color: #64748b; }
-        .add-form { display: flex; gap: 8px; align-items: center; margin-top: 15px; }
-        .add-form input[type="number"] { width: 55px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: center; }
-    </style>
+    <link rel="stylesheet" href="public/style/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-    <div>
-        <h1>BIENVENIDOS A ESTA TIENDA</h1>
-        <?php if(isset($_SESSION['username'])): ?>
-            <p style="margin: 5px 0 0 0; color: #16a34a; font-size: 0.95rem;">
-                Hola, <strong><?= htmlspecialchars($_SESSION['username']) ?></strong>
-            </p>
-        <?php elseif(isset($_SESSION['user']) && is_object($_SESSION['user']) && method_exists($_SESSION['user'], 'getUsername')): ?>
-            <p style="margin: 5px 0 0 0; color: #16a34a; font-size: 0.95rem;">
-                Hola, <strong><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></strong>
-            </p>
-        <?php endif; ?>
-    </div>
-    <div class="user-nav">
-        <a href="index.php?cart=1" class="btn btn-outline">🛒 Ver Carrito</a>
-        <?php if(isset($_SESSION['user']) || isset($_SESSION['username'])): ?>
-            <a href="index.php?logout=1" class="btn" style="background-color: #ef4444;">Cerrar Sesión</a>
-        <?php else: ?>
-            <a href="index.php?login=1" class="btn">Iniciar Sesión</a>
-            <a href="index.php?register=1" class="btn btn-outline">Registrarse</a>
-        <?php endif; ?>
-    </div>
-</header>
 
-        <h2>Catálogo de Productos</h2>
+<div class="nav">
+    <strong>🛒 Tienda Online</strong>
+    <?php
+    if(isset($_SESSION['user'])){
+        echo "Hola <b>".$_SESSION['user']->getUsername()."</b>";
+        echo " | <a href='index.php?c=product&new'>Subir producto</a>";
+        echo " | <a href='index.php?logout=1' style='color: red'>Cerrar sesión</a>";
+    }
+    else {
+        echo "<a href='index.php?login=1'>Entrar</a>";
+        echo " | <a href='index.php?register=1'>Registrarse</a>";
+    }
+    echo " | <a href='index.php?cart=1'>Ver carrito</a>";
+    ?>
+</div>
 
-        <div class="products-grid">
-            <?php if(!empty($products)): ?>
-                <?php foreach($products as $product): ?>
-                    <div class="product-card">
-                        <div>
-                            <h3><?= htmlspecialchars($product->getName()) ?></h3>
-                            <p><?= htmlspecialchars($product->getDescription()) ?></p>
-                        </div>
-                        <div>
-                            <div class="product-footer">
-                                <span class="price"><?= number_format($product->getPrice(), 2) ?> €</span>
-                                <span class="stock">Stock: <?= $product->getStock() ?></span>
-                            </div>
-                            
-                            <form action="index.php?c=cart" method="POST" class="add-form">
-                                <input type="hidden" name="product_id" value="<?= $product->getId() ?>">
-                                <input type="number" name="quantity" value="1" min="1" max="<?= $product->getStock() ?>">
-                                <button type="submit" name="addcart" class="btn" style="width: 100%;">Añadir</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No hay productos disponibles en este momento.</p>
-            <?php endif; ?>
-        </div>
+<h2>Catálogo de productos</h2>
+
+<?php
+foreach($products as $product){
+    ?>
+    <div class="producto">
+        <b><?= $product->getName() ?></b><br><br>
+        <?= $product->getDescription() ?><br><br>
+        Precio: <?= $product->getPrice() ?> € | Stock: <?= $product->getStock() ?><br>
+        <form action="index.php?c=cart" method="POST">
+            <input type="hidden" name="product_id" value="<?= $product->getId() ?>"><br>
+            <input type="number" name="quantity" value="1" min="1"  style="width: 50px" max="<?= $product->getStock() ?>">
+            <button type="submit" name="addcart">Añadir al carrito</button>
+        </form>
     </div>
+    <?php
+}
+?>
+
 </body>
 </html>
