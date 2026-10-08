@@ -6,8 +6,8 @@ class OrderLineRepository{
         $query="SELECT * FROM order_lines WHERE order_id=$order_id";
         $result=$db->query($query);
         $orderLines=[];
-        while($orderLine=$result->fetch_assoc()){
-            $orderLines[]=$orderLine;
+        while($row=$result->fetch_assoc()){
+            $orderLines[]=new OrderLine($row['id'], $row['product_id'], $row['quantity'], $row['price'], $row['order_id']);
         }
         return $orderLines;
     }
@@ -19,4 +19,20 @@ class OrderLineRepository{
         $orderLine=$result->fetch_assoc();
         return new OrderLine($orderLine['id'], $orderLine['product_id'], $orderLine['quantity'], $orderLine['price']);
     }
+
+    public static function addOrderLineToOrder($order, $product, $quantity){
+           $db=DB::connect();
+        $q='INSERT into order_lines VALUES (null, '.$order->getId().', '.$product->getId().', '.$quantity.', '.$product->getPrice().')';
+        $db->query($q);
+
+        if($db->insert_id) return true;
+        else return false;
+    }
+
+    public static function removeOrderLineById($id){
+        $db=DB::connect();
+        $query = "DELETE FROM order_lines WHERE id = " . $id;
+        $result=$db->query($query);
+        return $result;    
+    }   
 }

@@ -6,21 +6,31 @@ class OrderLine{
     private $product;
     private $quantity;
     private $price;
+    private $order_id;
 
+    
     public function __construct($id, $product_id, $quantity, $price, $order_id) {
         $this->id = $id;
         $this->product = ProductRepository::getProductById($product_id);
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->order = OrderRepository::getOrderById($order_id);
-    }
+        $this->order_id = $order_id;
+    }   
 
     public function getId() {
+        return $this->id;
+    }
+
+    public function getOrderId() {
         return $this->order_id;
     }
 
     public function getProductId() {
         return $this->product_id;
+    }
+
+    public function getProduct() {
+        return $this->product;
     }
 
     public function getQuantity() {

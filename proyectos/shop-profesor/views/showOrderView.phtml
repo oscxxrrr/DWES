@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    este es tu pedido<br>
+
+    <?php
+echo "fecha: ".$order->getDate()."<br>";
+
+foreach($order->getOrderLines() as $ol){
+    $totalPrice += $ol->getProduct()->getPrice() * $ol->getQuantity();
+    echo $ol->getProduct()->getName(). " - ".$ol->getQuantity()." - ".($ol->getProduct()->getPrice() * $ol->getQuantity())."€<br>";
+
+    // Formulario para eliminar producto del carrito
+    echo '<form action="index.php?c=order&delete" method="POST" style="display:inline;">
+            <input type="hidden" name="id" value="'.$ol->getId().'">
+            <button type="submit" name="delete">eliminar producto</button>
+          </form><br><br>';
+}
+
+echo "total: ".$totalPrice . "€";
+?>
+<form action="index.php?c=buyOrder&makeOrder" method="POST">
+    <input type="hidden" name="id" <?php echo 'value="'.$order->getId().'"'; ?>>
+    <button type="submit" name="makeOrder">comprar</button>
+</form> 
+<br><a href='index.php'>Volver</a>
+
+</body>
+</html>

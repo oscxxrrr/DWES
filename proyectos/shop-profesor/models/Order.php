@@ -28,7 +28,7 @@ class Order{
 
 
     public function getTotal() {
-        return $this->total;
+        return $this->total_price;
     }
 
     public function getStatus() {
@@ -41,5 +41,9 @@ class Order{
 
     public function getProducts() {
         return $this->products;
+    }
+
+    public function getOrderLines(){
+        return $this->orderLines;
     }
 }

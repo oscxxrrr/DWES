@@ -12,18 +12,27 @@
     <?php
 
     if(isset($_SESSION['user'])){
-        echo "hola ".$_SESSION['user']->getUsername(). "<a href='index.php?c=product&new'>Subir producto</a> <a href='index.php?c=user&logout'>salir</a>";
+        echo "hola ".$_SESSION['user']->getUsername(). "<br><a href='index.php?c=product&new'>Subir producto</a> <a href='index.php?c=user&logout'><br>salir</a>";
+        echo "<br>";
+        echo "<a href='index.php?c=order&show'>Ver carrito</a>";
     }
     else {
-        ?>
+        ?>  
     <a href="index.php?login">Entrar</a> <a href="index.php?register">Registrate</a>
 
     <?php
     }
-
+echo "<br><br>";
 
     foreach($products as $product){
-        echo $product->getName()."<br>";
+        echo $product->getName();
+    ?>
+        <form action="index.php?c=order&add" method="POST">
+            <input type="hidden" name="id" <?php echo 'value="'.$product->getId().'"'; ?>>
+            <input type="number" name="quantity" value="1">
+            <input type="submit" value="Añadir al carrito">
+        </form>
+    <?php
     }
     ?>
 </body>
