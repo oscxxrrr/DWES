@@ -9,6 +9,7 @@ require_once("models/ProductRepository.php");
 require_once("models/OrderRepository.php");
 require_once("models/OrderLineRepository.php");
 require_once("models/UserRepository.php");
+require_once("helpers/fileHelper.php");
 
 session_start();
 

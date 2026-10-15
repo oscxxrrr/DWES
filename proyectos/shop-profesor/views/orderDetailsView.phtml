@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del pedido</title>
+</head>
+<body>
+    <h1>Detalles del pedido #<?php echo $order->getId(); ?></h1>
+    Fecha: <?php echo $order->getDate(); ?><br><br>
+
+    <?php
+    foreach ($orderLines as $ol) {
+        echo $ol->getProduct()->getName() . " - " . $ol->getQuantity() . " unidades - " . ($ol->getPrice() * $ol->getQuantity()) . "€        -       " . '<img src="public/uploads/' . ($ol->getProduct()->getImage()) . '" alt="' . htmlspecialchars($ol->getProduct()->getName()) . '" style="width:50px;height:50px;object-fit:cover;vertical-align:middle;margin-right:10px;">';
+    }
+    ?>
+
+    <br>
+    Total: <?php echo $order->getTotal(); ?>€<br><br>
+    <a href="index.php?c=adminPanel&showOrders">Volver a pedidos</a>
+</body>
+</html>

@@ -12,7 +12,11 @@
     <?php
 
     if(isset($_SESSION['user'])){
-        echo "hola ".$_SESSION['user']->getUsername(). "<br><a href='index.php?c=product&new'>Subir producto</a> <a href='index.php?c=user&logout'><br>salir</a>";
+        echo "hola ".$_SESSION['user']->getUsername(). "<br></a> <a href='index.php?c=user&logout'><br>salir</a><br><br>";
+
+        if($_SESSION['user'] ->getRol() == "admin"){
+            echo "<a href='index.php?c=adminPanel'>Panel Admin</a><br><br>";
+        }   
         echo "<br>";
         echo "<a href='index.php?c=order&show'>Ver carrito</a>";
     }
@@ -25,11 +29,16 @@
 echo "<br><br>";
 
     foreach($products as $product){
-        echo $product->getName();
-    ?>
+        echo $product->getName(); echo "<br>";
+        echo $product->getDescription(); echo "<br>";
+        echo $product->getPrice(); echo "€<br>";
+        if ($product->getImage()) {
+            echo '<img src="public/uploads/' . htmlspecialchars($product->getImage()) . '" alt="' . htmlspecialchars($product->getName()) . '" style="width:200px;height:200px;object-fit:cover;display:block;margin-bottom:5px;"><br>';
+        }
+            ?>
         <form action="index.php?c=order&add" method="POST">
             <input type="hidden" name="id" <?php echo 'value="'.$product->getId().'"'; ?>>
-            <input type="number" name="quantity" value="1">
+            <input type="number" name="quantity" value="1" min="1">
             <input type="submit" value="Añadir al carrito">
         </form>
     <?php

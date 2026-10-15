@@ -3,7 +3,7 @@
 if(isset($_GET['add'])){
 
     //sacar el producto de la base de datos
-    if(isset($_POST['id']) && isset($_POST['quantity'])){
+    if(isset($_POST['id']) && isset($_POST['quantity']) && $_POST['quantity'] > 0){
     $product=ProductRepository::getProductById($_POST['id']);
 
     //tener el pedido en estado carrito del usuario

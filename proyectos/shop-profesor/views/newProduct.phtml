@@ -6,12 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="index.php?c=product&add" method="POST">
-        <input type="text" name="name" placeholder="nombre del producto"><br><br>
-        <input type="text" name="description" placeholder="descripcion del producto"><br><br>
-        <input type="number" name="price" placeholder="precio del producto"><br><br>
-        <input type="number" name="stock" placeholder="stock del producto"><br><br>
+    <form action="index.php?c=product&add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="nombre del producto" required><br><br>
+        <textarea name="description" placeholder="descripcion del producto"></textarea><br><br>
+        <input type="number" step="any" min="0" name="price" placeholder="precio del producto" required><br><br>
+        <input type="number" min="0" name="stock" placeholder="stock del producto" required><br><br>
+        <input type="file" name="image" accept=".jpg,.png"><br><br>
         <input type="submit" value="Añadir">
-</form>
+    </form>
+    <br>
+    <a href="index.php?c=adminPanel">Volver al panel de administración</a>
 </body>
 </html>

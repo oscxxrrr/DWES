@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admin</title>
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <form action="index.php?c=product&save" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <?php if(!empty($image)): ?>
+            <p>Imagen actual:</p>
+            <img src="public/uploads/<?php echo $image; ?>" alt="<?php echo $name; ?>" style="width:80px;height:80px;object-fit:cover;"><br><br>
+        <?php endif; ?>
+        <input type="text" name="name" value="<?php echo $name; ?>"><br><br>
+        <input type="text" name="description" value="<?php echo $description; ?>"><br><br>
+        <input type="number" step="any" min="0" name="price" value="<?php echo $price; ?>"><br><br>
+        <input type="number" min="0" name="stock" value="<?php echo $stock; ?>"><br><br>
+        <label for="image">Cambiar imagen:</label><br>
+        <input type="file" name="image" id="image" accept=".jpg,.png"><br><br>
+        <input type="submit" value="Guardar">
+    </form>
+    <a href="index.php?c=adminPanel&showProducts">Volver al panel admin</a><br><br>
+</body>
+</html>

@@ -13,7 +13,10 @@ echo "fecha: ".$order->getDate()."<br>";
 
 foreach($order->getOrderLines() as $ol){
     $totalPrice += $ol->getProduct()->getPrice() * $ol->getQuantity();
-    echo $ol->getProduct()->getName(). " - ".$ol->getQuantity()." - ".($ol->getProduct()->getPrice() * $ol->getQuantity())."€<br>";
+    if ($ol->getProduct()->getImage()) {
+        echo '<img src="public/uploads/' . htmlspecialchars($ol->getProduct()->getImage()) . '" alt="' . htmlspecialchars($ol->getProduct()->getName()) . '" style="width:50px;height:50px;object-fit:cover;vertical-align:middle;margin-right:10px;">';
+    }
+    echo $ol->getProduct()->getName(). " - ".$ol->getQuantity()." - ".($ol->getProduct()->getPrice() * $ol->getQuantity())."€ ";
 
     // Formulario para eliminar producto del carrito
     echo '<form action="index.php?c=order&delete" method="POST" style="display:inline;">
