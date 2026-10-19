@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Gestor de Tareas</title>
+    </head>
+    <body>
+        <?php if(isset($_SESSION['user'])){
+            echo "hola " . $_SESSION['user']->getUsername() . "<br><br>";
+            echo "<a href='index.php?c=user&logout'>Salir</a><br><br>";
+            echo "<a href='index.php?c=task&add'>Añadir tarea</a><br>";
+            if($_SESSION['user']->getRol() == 'admin'){
+                $tareas=$_SESSION['user']->getAllTasks();
+            }else{
+                $tareas=$_SESSION['user']->getTasks();
+            }
+            ?>
+            <table style="width:60%; border: 1px solid black; border-collapse: collapse;">
+                <thead>
+                    <tr style="border: 1px solid black; border-collapse: collapse;">
+                        <th>Id</th>
+                        <th>Titulo</th>
+                        <th>Contenido</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Limite</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($tareas as $tarea){ ?>
+                        <tr>
+                            <td> <?php echo $tarea->getId(); ?>  </td>
+                            <td><?php echo $tarea->getTitulo(); ?></td>
+                            <td><?php echo $tarea->getContenido(); ?></td>
+                            <td><?php echo $tarea->getFecha_inicio(); ?></td>
+                            <td><?php echo $tarea->getFecha_limite(); ?></td>
+                            <td><?php echo $tarea->getEstado(); ?></td>
+                            <td><a href='index.php?c=task&delete=<?php echo $tarea->getId(); ?>'>    Borrar</a><br>
+                            <a href='index.php?c=task&edit=<?php echo $tarea->getId(); ?>'>   Editar</a><br>
+                            <a href='index.php?c=task&finished=<?php echo $tarea->getId(); ?>'>   <?php echo $tarea->getEstado()=="pendiente" ? "Terminada" : "Pendiente" ?></a><br>
+                            <a href='index.php?shareTask=<?php echo $tarea->getId(); ?>'>   Compartir</a> <br><br></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>    
+            </table>    
+        <?php }else{
+            echo "<a href='index.php?login'>Entrar</a> <br><br>";
+            echo "<a href='index.php?register'>Registrate</a><br>";
+        } ?>
+    </body>
+</html>
