@@ -9,7 +9,7 @@
 
 Este repositorio contiene la recopilación de **ejercicios prácticos, scripts y aplicaciones web dinámicas en PHP** desarrolladas durante el segundo curso del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW) en el **I.E.S. Politécnico Hermenegildo Lanz**.
 
-El objetivo de este espacio es afianzar la lógica de backend, la conexión y gestión de bases de datos relacionales, el manejo de sesiones, la seguridad y la arquitectura web del lado del servidor utilizando un entorno optimizado con **WSL** y **Docker**.
+El objetivo de este espacio es afianzar la lógica de backend, la conexión y gestión de bases de datos relacionales, el manejo de sesiones, la seguridad y la arquitectura web del lado del servidor utilizando herramientas como **Antigravity**.
 
 ---
 
@@ -18,10 +18,8 @@ El objetivo de este espacio es afianzar la lógica de backend, la conexión y ge
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![WSL](https://img.shields.io/badge/WSL-0078D6?style=for-the-badge&logo=linux&logoColor=white)
 
 ---
 
@@ -38,7 +36,7 @@ El código está estructurado para abordar diferentes conceptos clave del desarr
 
 ## 🚀 Cómo clonar y ejecutar las prácticas localmente
 
-Para poner en marcha y probar las prácticas de este repositorio en tu equipo (recomendado desde tu terminal en WSL y un entorno contenedorizado o servidor local), sigue estos pasos:
+Para poner en marcha y probar las prácticas de este repositorio en tu equipo, sigue estos pasos:
 
 1. **Clona el repositorio:**
    ```bash
