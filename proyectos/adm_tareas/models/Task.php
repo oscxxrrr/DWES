@@ -28,12 +28,16 @@ class Task{
         return $this->titulo;
     }
 
-    public function getfecha_inicio() {
-        return $this->fecha_inicio;
+    public function getfecha_inicio($formato = "d/m/Y") {
+        if(!empty($this->fecha_inicio)){
+            return date($formato, strtotime($this->fecha_inicio));
+        }
     }
 
-    public function getfecha_limite() {
-        return $this->fecha_limite;
+    public function getfecha_limite($formato = "d/m/Y") {
+        if($this->fecha_limite){
+            return date($formato, strtotime($this->fecha_limite));
+        }
     }
     
     public function getEstado() {
@@ -43,5 +47,17 @@ class Task{
     public function getContenido() {
         return $this->contenido;
     }  
+
+    public function getMarks() {
+        return MarkRepository::getMarksByTaskId($this->id);
+    }
+
+    public function hasMark($markId) {
+        foreach ($this->getMarks() as $mark) {
+            if ($mark->getId() == $markId) {
+                return true;
+            }
+        }
+    }
     
 }

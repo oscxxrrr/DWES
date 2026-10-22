@@ -4,12 +4,19 @@ require_once("models/User.php");
 require_once("models/UserRepository.php");
 require_once("models/Task.php");
 require_once("models/TaskRepository.php");
+require_once("models/Mark.php");
+require_once("models/MarkRepository.php");
 
 session_start();
 
 // acciones
 if(isset($_GET['c'])){
     require_once("controllers/".$_GET['c']."Controller.php");
+}
+
+if(isset($_GET['markTask'])){
+    header("Location: index.php?c=task&edit=".$_GET['markTask']);
+    exit;
 }
 
 // login
@@ -24,10 +31,9 @@ if(isset($_GET['register'])){
     exit;
 }
 
-//share task
-if(isset($_GET['shareTask'])){
-    $tarea= TaskRepository::getTaskById($_GET['shareTask']);
-    require_once('views/shareTask.phtml');
+//filtrar
+if(isset($_POST['filter']) || isset($_GET['filter'])){
+    require_once("controllers/filterController.php");
     exit;
 }
 

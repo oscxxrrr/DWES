@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Task</title>
+    <link rel="stylesheet" href="css/viewTask.css">
+</head>
+<body>
+    <form action="index.php?c=task&viewTask" method="POST">
+        <input type="text" name="titulo" placeholder="titulo" required value="<?php echo $tarea->getTitulo(); ?>" readonly><br><br>
+        <textarea name="contenido" placeholder="contenido" required readonly><?php echo $tarea->getContenido(); ?></textarea><br><br>
+        <input type="date" date_format="d-m-Y" name="fecha_inicio" placeholder="fecha de inicio" value="<?php echo $tarea->getFecha_inicio('Y-m-d'); ?>" readonly><br><br>
+        <input type="date" date_format="d-m-Y" name="fecha_limite" placeholder="fecha limite" required value="<?php echo $tarea->getFecha_limite('Y-m-d'); ?>" readonly><br><br>
+        <label><b>Etiquetas:</b></label>
+        <?php foreach($tarea->getMarks() as $mark){ ?>
+            <label>
+                <input type="text" name="etiquetas" value="<?php echo $mark->getNombre(); ?>" readonly>
+            </label>
+        <?php } ?>
+        <br>
+    </form>
+    <br>
+    <a href="index.php">Volver</a>
+</body>
+</html>

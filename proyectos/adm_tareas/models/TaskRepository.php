@@ -32,10 +32,5 @@
         return $tasks;
     }
 
-    public static function shareTask($userId){
-        $db=DB::connect();
-        $query="INSERT INTO task(titulo, contenido, fecha_inicio, fecha_limite, estado, user_id) values ($task[titulo], $task[contenido], $task[fecha_inicio], $task[fecha_limite], $task[estado], $userId)";
-        $result=$db->query($query);
-    }
 }
 ?>

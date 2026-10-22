@@ -2,16 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit task</title>
+    <link rel="stylesheet" href="css/editTask.css">
 </head>
 <body>
-    <h1>Edit task</h1>
+    <h1>Editar Tarea</h1>
     <form action="index.php?c=task&update" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $tarea->getId(); ?>">
         <input type="text" name="titulo" value="<?php echo $tarea->getTitulo(); ?>"><br><br>
-        <textarea name="contenido" value="<?php echo $tarea->getContenido(); ?>">   </textarea><br><br>
-        <input type="date" date_format="d-m-Y" name="fecha_inicio" value="<?php echo $tarea->getfecha_inicio(); ?>"><br><br>
-        <input type="date" date_format="d-m-Y" name="fecha_limite" value="<?php echo $tarea->getfecha_limite(); ?>"><br><br>
+        <textarea name="contenido"><?php echo $tarea->getContenido(); ?></textarea><br><br>
+        <input type="date" date_format="d-m-Y" name="fecha_inicio" value="<?php echo $tarea->getfecha_inicio('Y-m-d'); ?>"><br><br>
+        <input type="date" date_format="d-m-Y" name="fecha_limite" value="<?php echo $tarea->getfecha_limite('Y-m-d'); ?>"><br><br>
+        <label><b>Etiquetas:</b></label><br>
+        <?php foreach($etiquetas as $etiqueta){ ?>
+        <label>
+            <input type="checkbox" name="etiquetas[]" value="<?php echo $etiqueta->getId(); ?>" 
+            <?php if($tarea->hasMark($etiqueta->getId())) echo 'checked'; ?>>
+            <?php echo $etiqueta->getNombre(); ?>
+        </label><br>
+        <?php } ?>
+        <br>
         <input type="submit" value="Guardar">
     </form>
     <a href="index.php">Volver</a><br><br>

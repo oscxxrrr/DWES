@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   Variables & Tema Global para Ver Tarea (Solo Lectura)
+   ========================================================================== */
+:root {
+    --primary: #0d9488;
+    --primary-hover: #0f766e;
+    --primary-light: #f0fdfa;
+    --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #e2e8f0 100%);
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow-card: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    --radius-lg: 18px;
+    --radius-md: 10px;
+    --radius-pill: 9999px;
+}
+
+/* ==========================================================================
+   Reset & Estructura Base
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+br {
+    display: none;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    color: var(--text-main);
+    position: relative;
+}
+
+/* Badge superior de modo lectura */
+body::before {
+    content: "Detalles de la Tarea ";
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background-color: #ffffff;
+    border: 1.5px solid #ccfbf1;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.1);
+}
+
+/* ==========================================================================
+   Tarjeta / Ficha de la Tarea (Formulario de Solo Lectura)
+   ========================================================================== */
+form {
+    width: 100%;
+    max-width: 580px;
+    background: var(--card-bg);
+    padding: 38px 34px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Título de la tarea */
+form input[name="titulo"] {
+    width: 100%;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-main);
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    outline: none;
+    pointer-events: none;
+    /* Bloquea cualquier interacción/edición */
+    user-select: text;
+}
+
+/* Contenido / Descripción de la tarea */
+form textarea[name="contenido"] {
+    width: 100%;
+    min-height: 130px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #334155;
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    resize: none;
+    outline: none;
+    pointer-events: none;
+    /* Bloquea cualquier interacción/edición */
+    user-select: text;
+}
+
+/* Fechas de inicio y límite */
+form input[type="date"] {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    outline: none;
+    pointer-events: none;
+    /* Bloquea el selector de fechas */
+}
+
+/* Encabezado de Etiquetas */
+form label:has(b),
+form label>b {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 6px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+
+/* Etiquetas estilizadas como Badges / Pills modernos */
+form label:has(input[name="etiquetas"]) {
+    display: inline-flex;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+form input[name="etiquetas"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0f766e;
+    background-color: #ccfbf1;
+    border: 1px solid #99f6e4;
+    border-radius: var(--radius-pill);
+    outline: none;
+    pointer-events: none;
+    text-align: center;
+    width: auto;
+}
+
+/* ==========================================================================
+   Botón Volver
+   ========================================================================== */
+body>a[href="index.php"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 22px;
+    background-color: var(--card-bg);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+body>a[href="index.php"]::before {
+    content: "←";
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+body>a[href="index.php"]:hover {
+    color: var(--primary);
+    border-color: #99f6e4;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 14px rgba(13, 148, 136, 0.15);
+}
+
+/* ==========================================================================
+   Animaciones
+   ========================================================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 580px) {
+    body {
+        padding: 24px 16px;
+    }
+
+    form {
+        padding: 26px 20px;
+    }
+}

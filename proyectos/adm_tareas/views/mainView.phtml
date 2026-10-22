@@ -1,16 +1,43 @@
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestor de Tareas</title>
+        <link rel="stylesheet" href="css/mainView.css">
     </head>
     <body>
         <?php if(isset($_SESSION['user'])){
-            echo "hola " . $_SESSION['user']->getUsername() . "<br><br>";
+            echo "Bienvenido " . $_SESSION['user']->getUsername() . ", disfruta y gestiona tus tareas<br><br>";
+            echo "<a href='index.php?login'>Cambiar de usuario</a><br><br>";
             echo "<a href='index.php?c=user&logout'>Salir</a><br><br>";
             echo "<a href='index.php?c=task&add'>Añadir tarea</a><br>";
-            if($_SESSION['user']->getRol() == 'admin'){
-                $tareas=$_SESSION['user']->getAllTasks();
-            }else{
-                $tareas=$_SESSION['user']->getTasks();
+            echo "<form action='index.php?filter&mark' method='POST'>
+                    <select name='etiqueta'>
+                        <option value=''>Todas las etiquetas</option>";
+            foreach (MarkRepository::getAllMarks() as $mark) {                
+                echo "<option value=" . $mark->getId() . ">" . $mark->getNombre() . "</option>";
+            }
+            echo "  </select>
+                    <input type='submit' name='filter' value='Filtrar Etiqueta'>
+                </form>
+                <form action='index.php?filter&state' method='POST'>
+                    <select name='estado'>
+                        <option value=''>Todos los estados</option>";
+            foreach (['pendiente','realizada'] as $state) {                
+                echo "<option value=" . $state . ">" . $state . "</option>";
+            }
+            echo "  </select>
+                    <input type='submit' name='filter' value='Filtrar Estado'>
+                </form>    
+            ";
+
+            if(!isset($tareas)){
+                if($_SESSION['user']->getRol() == 'admin'){
+                
+                    $tareas=$_SESSION['user']->getAllTasks();
+                }else{
+                    $tareas=$_SESSION['user']->getTasks();
+                }
             }
             ?>
             <table style="width:60%; border: 1px solid black; border-collapse: collapse;">
@@ -22,6 +49,7 @@
                         <th>Fecha Inicio</th>
                         <th>Fecha Limite</th>
                         <th>Estado</th>
+                        <th>Etiquetas</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -31,13 +59,22 @@
                             <td> <?php echo $tarea->getId(); ?>  </td>
                             <td><?php echo $tarea->getTitulo(); ?></td>
                             <td><?php echo $tarea->getContenido(); ?></td>
-                            <td><?php echo $tarea->getFecha_inicio(); ?></td>
+                            <td><?php echo $tarea->getFecha_inicio(); ?></td>   
                             <td><?php echo $tarea->getFecha_limite(); ?></td>
-                            <td><?php echo $tarea->getEstado(); ?></td>
+                            <td><a href='index.php?c=task&finished=<?php echo $tarea->getId(); ?>'>   
+                            <?php echo $tarea->getEstado()=="pendiente" ? "Terminada" : "Pendiente" ?></a><br></td>
+                            <td>
+                                <?php 
+                                foreach($tarea->getMarks() as $mark){
+                                    echo " | " . $mark->getNombre();
+                                }
+                                echo " | ";
+                                ?>
+                            </td>
                             <td><a href='index.php?c=task&delete=<?php echo $tarea->getId(); ?>'>    Borrar</a><br>
                             <a href='index.php?c=task&edit=<?php echo $tarea->getId(); ?>'>   Editar</a><br>
-                            <a href='index.php?c=task&finished=<?php echo $tarea->getId(); ?>'>   <?php echo $tarea->getEstado()=="pendiente" ? "Terminada" : "Pendiente" ?></a><br>
-                            <a href='index.php?shareTask=<?php echo $tarea->getId(); ?>'>   Compartir</a> <br><br></td>
+                            <a href='index.php?c=task&view=<?php echo $tarea->getId(); ?>'>   Abrir tarea</a><br>
+                            <br><br></td>
                         </tr>
                     <?php } ?>
                 </tbody>    
