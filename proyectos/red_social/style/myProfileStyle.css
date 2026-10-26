@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #111827;
+    margin-bottom: 24px;
+}
+
+a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
+
+.post {
+    background: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.post p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: block;
+}
+
+.post a[href*="delete"] {
+    display: inline-block;
+    color: #dc2626;
+    background-color: #fee2e2;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.post a[href*="delete"]:hover {
+    background-color: #fecaca;
+    color: #b91c1c;
+    text-decoration: none;
+}
+
+.post p:has(b) {
+    background: #f9fafb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #4b5563;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-left: 3px solid #6366f1;
+}
+
+body > a {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+body > a:hover {
+    background: #f3f4f6;
+    color: #111827;
+    text-decoration: none;
+}

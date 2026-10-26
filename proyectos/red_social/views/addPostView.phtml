@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Post</title>
+        <link rel="stylesheet" href="style/addPostStyle.css">
+    </head>
+    <body>
+        <h1>New Post</h1>
+        <form action="index.php?c=post" method="POST" enctype="multipart/form-data">
+            <label for="content">Contenido:</label><br>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea><br><br>
+            <label for="image">Imagen:</label><br>
+            <input type="file" name="image" accept=".jpg,.png"><br><br>
+            <input type="submit" name="addPost" value="Publicar"><br>
+            <a href="index.php">Cancelar</a><br>
+        </form>
+    </body>
+</html>

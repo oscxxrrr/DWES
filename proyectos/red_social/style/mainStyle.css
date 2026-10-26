@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+    min-height: 100vh;
+}
+
+/* Encabezado del usuario cuando está logueado */
+.user-header {
+    background: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.user-header h2 {
+    font-size: 1.3rem;
+    color: #111827;
+}
+
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Tarjeta de bienvenida cuando no ha iniciado sesión */
+.welcome-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 460px;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.welcome-box h1 {
+    font-size: 2.2rem;
+    color: #4f46e5;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.welcome-box p {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Estilos de botones generales */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 9px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-large {
+    padding: 13px 20px;
+    font-size: 1.05rem;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-secondary {
+    background-color: #10b981;
+    color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+    background-color: #059669;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-outline {
+    background-color: #f3f4f6;
+    color: #374151 !important;
+    border: 1px solid #d1d5db;
+}
+
+.btn-outline:hover {
+    background-color: #e5e7eb;
+    text-decoration: none !important;
+}
+
+.btn-danger {
+    background-color: #fee2e2;
+    color: #dc2626 !important;
+}
+
+.btn-danger:hover {
+    background-color: #fecaca;
+    text-decoration: none !important;
+}
+
+/* Publicaciones */
+.post {
+    background: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    padding: 22px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.post h3 {
+    font-size: 1.15rem;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.post p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0 14px 0;
+    display: block;
+}
+
+.likes-count {
+    font-weight: 600;
+    color: #4b5563 !important;
+    margin-bottom: 10px !important;
+}
+
+.post-actions {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 14px;
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #f3f4f6;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #374151 !important;
+    text-decoration: none !important;
+    transition: background 0.2s;
+}
+
+.btn-action:hover {
+    background: #e5e7eb;
+}
+
+/* Caja de comentarios */
+.comments-box {
+    background: #f9fafb;
+    padding: 12px 14px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-item {
+    font-size: 0.88rem !important;
+    margin-bottom: 0 !important;
+    color: #4b5563 !important;
+}

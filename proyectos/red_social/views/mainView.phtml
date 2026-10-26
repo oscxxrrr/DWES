@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Red Social</title>
+        <link rel="stylesheet" href="style/mainStyle.css">
+    </head>
+    <body>
+        <?php if(isset($_SESSION['user'])){ ?>
+            <div class="user-header">
+                <h2>Bienvenido, <?php echo $_SESSION['user']->getUsername(); ?></h2>
+                <div class="nav-actions">
+                    <a href="index.php?c=post&add" class="btn btn-primary">➕ Subir Post</a>
+                    <a href="index.php?c=post&myProfile" class="btn btn-secondary">👤 Ver Perfil</a>
+                    <a href="index.php?login" class="btn btn-outline">🔄 Cambiar usuario</a>
+                    <a href="index.php?c=user&logout" class="btn btn-danger">🚪 Salir</a>
+                </div>
+            </div>
+            
+            <?php
+            $posts = Post::getAllPosts($_SESSION['user']->getId());
+            foreach($posts as $post){
+                echo "<div class='post'>";
+                echo "<h3>" . $post->getUsername() . "</h3>";
+                echo "<p>" . $post->getContent() . "</p>";
+                echo $post->getImage();
+                $likesCount = Likes::countByPost($post->getId());
+                $hasLiked = Likes::hasLiked($_SESSION['user']->getId(), $post->getId());
+                $likeText = $hasLiked ? "❤️ Quitar Like" : "🤍 Like";
+
+                echo "<p class='likes-count'>" . $likesCount . " likes</p>";
+                echo "<div class='post-actions'>";
+                echo "<a href='index.php?c=like&post_id=" . $post->getId() . "' class='btn-action'>" . $likeText . "</a>";
+                echo "<a href='index.php?c=comment&add&post_id=" . $post->getId() . "' class='btn-action'>💬 Comentar</a>";
+                echo "</div>";
+
+                $comentarios = Coments::getByPost($post->getId());
+                if(!empty($comentarios)){
+                    echo "<div class='comments-box'>";
+                    foreach($comentarios as $c){
+                        echo "<p class='comment-item'><b>" . $c->getUsername() . ":</b> " . $c->getTexto() .  "<a href='index.php?c=comment&delete=". $c->getId() . "'>Borrar</a> " . "<a href='index.php?c=like&coment_id=". $c->getId() . "'>Me gusta</a></p>";
+                    }
+                    echo "</div>";
+                }
+                echo "</div>";
+            }
+            ?>
+
+        <?php }else{ ?>
+            <div class="welcome-box">
+                <h1>Red Social</h1>
+                <p>Descubre lo que están compartiendo tus amigos y únete a la comunidad.</p>
+                <div class="auth-buttons">
+                    <a href="index.php?login" class="btn btn-primary btn-large">Iniciar Sesión</a>
+                    <a href="index.php?register" class="btn btn-secondary btn-large">Crear una cuenta</a>
+                </div>
+            </div>
+        <?php } ?>
+    </body>
+</html>

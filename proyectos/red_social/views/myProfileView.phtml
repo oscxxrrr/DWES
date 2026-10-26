@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi perfil</title>
+        <link rel="stylesheet" href="style/myProfileStyle.css">
+    </head>
+    <body>
+        <h1>Mi perfil</h1>
+        <?php foreach($myPosts as $post){ ?>
+            <div class='post'>
+                <p><?php echo $post->getContent(); ?></p>
+                <?php echo $post->getImage(); ?>
+                <p><?php echo Likes::countByPost($post->getId()); ?> ❤️ likes</p>
+                <a href="index.php?c=post&delete&post_id=<?php echo $post->getId(); ?>">Eliminar</a><br>
+                <?php
+                $comentarios = Coments::getByPost($post->getId());
+                foreach($comentarios as $c){
+                    echo "<p><b>" . $c->getUsername() . ":</b> " . $c->getTexto() . "</p>";
+                }
+                ?>
+            </div>
+        <?php } ?>
+        <a href="index.php">Volver</a><br>
+        <a href="index.php?c=post&add">Añadir post</a><br>
+        <a href="index.php?c=user&logout">Cerrar sesion</a><br>
+    </body>
+</html>

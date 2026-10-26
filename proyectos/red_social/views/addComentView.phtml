@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Añadir Comentario</title>
+        <link rel="stylesheet" href="style/addComentStyle.css">
+    </head>
+    <body>
+        <h1>Añadir Comentario</h1>
+        <form action="index.php?c=comment" method="POST">
+            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+            <label for="texto">Comentario:</label><br>
+            <textarea name="texto" id="texto" cols="30" rows="5"></textarea><br><br>
+            <input type="submit" name="addComment" value="Comentar"><br>
+            <a href="index.php">Cancelar</a>
+        </form>
+    </body>
+</html>
