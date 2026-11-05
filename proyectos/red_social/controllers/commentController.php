@@ -15,7 +15,11 @@ if(isset($_POST['addComment'])){
 
 if(isset($_GET['delete'])){
     $comentId = $_GET['comentId'];
-    Coments::deleteById($comentId);
+    $coment = Coments::getById($comentId);
+    if($coment->getUsuarioId() == $_SESSION['user']->getId()){
+        Coments::deleteById($comentId);
+    }
+
     header("Location: index.php");
     exit;
 }

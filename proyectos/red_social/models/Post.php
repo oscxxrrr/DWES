@@ -6,15 +6,13 @@ class Post {
     private $username;
     private $content;
     private $image;
-    private $likes;
 
-    public function __construct($user_id, $username, $content, $image = "", $id = null, $likes = 0) {
+    public function __construct($user_id, $username, $content, $image = "", $id = null) {
         $this->user_id = $user_id;
         $this->username = $username;
         $this->content = $content;
         $this->image = $image;
         $this->id = $id;
-        $this->likes = $likes;
     }
 
     public function getId() {
@@ -62,7 +60,6 @@ class Post {
 
     public static function getAllPosts($id){
         $db = DB::connect();
-        // para poder consultar el username y sacar aquellos que no son del propio usuario
         $q = "SELECT publicaciones.*, usuarios.nombre_usuario FROM publicaciones JOIN usuarios ON publicaciones.usuario_id = usuarios.id WHERE publicaciones.usuario_id <> $id";
         $result = $db->query($q);
         $posts = [];

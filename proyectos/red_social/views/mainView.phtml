@@ -12,7 +12,6 @@
                 <div class="nav-actions">
                     <a href="index.php?c=post&add" class="btn btn-primary">➕ Subir Post</a>
                     <a href="index.php?c=post&myProfile" class="btn btn-secondary">👤 Ver Perfil</a>
-                    <a href="index.php?login" class="btn btn-outline">🔄 Cambiar usuario</a>
                     <a href="index.php?c=user&logout" class="btn btn-danger">🚪 Salir</a>
                 </div>
             </div>
@@ -37,8 +36,16 @@
                 $comentarios = Coments::getByPost($post->getId());
                 if(!empty($comentarios)){
                     echo "<div class='comments-box'>";
-                    foreach($comentarios as $c){
-                        echo "<p class='comment-item'><b>" . $c->getUsername() . ":</b> " . $c->getTexto() .  "<a href='index.php?c=comment&delete=". $c->getId() . "'>Borrar</a> " . "<a href='index.php?c=like&coment_id=". $c->getId() . "'>Me gusta</a></p>";
+                    foreach($comentarios as $comm){
+                        $likeComent = Likes::hasLikedComment($_SESSION['user']->getId(), $comm->getId());
+                        $likeComentText = $likeComent ? "❤️" : "🤍";
+                        $likeComentCount = Likes::countByComment($comm->getId());
+                        $deleteBtn = ($comm->getUsuarioId() == $_SESSION['user']->getId())
+                            ? " <a href='index.php?c=comment&delete&comentId=" . $comm->getId() . "'>🗑️ Borrar</a>"
+                            : "";
+                        echo "<p class='comment-item'><b>" . $comm->getUsername() . ":</b> " . $comm->getTexto()
+                            . " <a href='index.php?c=like&coment_id=" . $comm->getId() . "'>" . $likeComentText . " " . $likeComentCount . "</a>"
+                            . $deleteBtn . "</p>";
                     }
                     echo "</div>";
                 }

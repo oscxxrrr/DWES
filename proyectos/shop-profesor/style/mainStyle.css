@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding: 30px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Enlaces principales y botones de navegación */
+a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin: 4px 6px 4px 0;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+a:hover {
+    background-color: #1d4ed8;
+}
+
+a[href*="logout"] {
+    background-color: #ef4444;
+}
+
+a[href*="logout"]:hover {
+    background-color: #dc2626;
+}
+
+a[href*="adminPanel"] {
+    background-color: #7c3aed;
+}
+
+a[href*="adminPanel"]:hover {
+    background-color: #6d28d9;
+}
+
+a[href*="order&show"] {
+    background-color: #059669;
+}
+
+a[href*="order&show"]:hover {
+    background-color: #047857;
+}
+
+/* Imágenes de producto */
+img {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin: 10px 0;
+    border: 1px solid #e2e8f0;
+}
+
+/* Formulario de añadir al carrito */
+form {
+    display: inline-block;
+    margin: 6px 0 24px 0;
+}
+
+input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 80px;
+    margin-right: 8px;
+    background-color: #ffffff;
+}
+
+input[type="number"]:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input[type="submit"] {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #1d4ed8;
+}

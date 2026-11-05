@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding: 30px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+img {
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+/* Botón eliminar */
+button[name="delete"] {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+button[name="delete"]:hover {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+/* Botón comprar */
+button[name="makeOrder"] {
+    background-color: #059669;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 15px;
+}
+
+button[name="makeOrder"]:hover {
+    background-color: #047857;
+}
+
+a {
+    display: inline-block;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    margin-top: 10px;
+}
+
+a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
